@@ -1,0 +1,70 @@
+'use strict';
+
+const fs = require('fs');
+
+process.stdin.resume();
+process.stdin.setEncoding('utf-8');
+
+let inputString = '';
+let currentLine = 0;
+
+process.stdin.on('data', function(inputStdin) {
+    inputString += inputStdin;
+});
+
+process.stdin.on('end', function() {
+    inputString = inputString.split('\n');
+
+    main();
+});
+
+function readLine() {
+    return inputString[currentLine++];
+}
+
+
+
+/*
+ * Complete the 'getMin' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts STRING s as parameter.
+ */
+
+function getMin(s) {
+    var arr = new Array();
+    let st = 0;
+    let en = 0;
+    let min = 0;
+    for(let i = 0; i < s.length; i++){
+        if(s[i] == '('){
+            st++;
+        }
+        else if(s[i] == ')'){
+            en++;
+        }
+    }
+    if(st > en){
+        min = st - en;   
+    }
+    else if(en > st){
+        min = en - st;
+    }
+    return min
+
+}
+
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const s = readLine();
+
+    const result = getMin(s);
+
+    ws.write(result + '\n');
+
+    ws.end();
+}
+
+
+================
